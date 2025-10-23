@@ -11,7 +11,17 @@ import onnxruntime as ort
 from PIL import Image
 from torchvision import transforms
 
-from config import QCConfig
+try:  # allow running as script or package module
+    from config import QCConfig  # type: ignore
+except ImportError:
+    import sys
+    from pathlib import Path
+
+    PROJECT_ROOT = Path(__file__).resolve().parents[2]
+    if str(PROJECT_ROOT) not in sys.path:
+        sys.path.append(str(PROJECT_ROOT))
+    from src.config import QCConfig  # type: ignore
+
 from .dataset_qc import IMAGENET_MEAN, IMAGENET_STD
 
 
