@@ -6,7 +6,7 @@ import random
 from pathlib import Path
 from typing import Sequence
 
-from src.utils_io import list_images
+from utils_io import list_images
 
 
 RANDOM_SEED = 2024

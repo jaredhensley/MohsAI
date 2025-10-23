@@ -14,11 +14,11 @@ from torch import nn
 from torch.utils.data import DataLoader, Subset, random_split
 from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score
 
-from src.config import QCConfig
+from config import QCConfig
 from .dataset_qc import build_datasets
 from .dummy_data import create_dummy_images
 from .model_qc import create_model, logits_to_prob
-from src.utils_io import write_json
+from utils_io import write_json
 
 
 RANDOM_SEED = 1337
