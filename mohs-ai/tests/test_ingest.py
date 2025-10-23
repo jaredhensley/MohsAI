@@ -1,6 +1,10 @@
 from pathlib import Path
 import csv
 
+import pytest
+
+pytest.importorskip("dotenv")
+
 from src.ingest_deid import ingest_metadata
 
 

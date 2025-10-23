@@ -1,3 +1,7 @@
+import pytest
+
+pytest.importorskip("PIL")
+
 from PIL import Image
 
 from src.margin.infer_margin import infer_margin_stub

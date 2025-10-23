@@ -11,7 +11,7 @@ import onnxruntime as ort
 from PIL import Image
 from torchvision import transforms
 
-from config import QCConfig
+from src.config import QCConfig
 from .dataset_qc import IMAGENET_MEAN, IMAGENET_STD
 
 

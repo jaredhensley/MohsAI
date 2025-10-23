@@ -7,9 +7,9 @@ from pathlib import Path
 import streamlit as st
 from PIL import Image
 
-from config import QCConfig
-from qc.infer_qc import QCOnnxInferencer
-from margin.infer_margin import infer_margin_stub
+from src.config import QCConfig
+from src.qc.infer_qc import QCOnnxInferencer
+from src.margin.infer_margin import infer_margin_stub
 
 
 st.set_page_config(title="Mohs Lab Assist", layout="wide")

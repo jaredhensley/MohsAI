@@ -5,7 +5,7 @@ import argparse
 from pathlib import Path
 import csv
 
-from config import QCConfig
+from src.config import QCConfig
 
 
 def ingest_metadata(labels_csv: Path, deid_map_csv: Path, output_dir: Path) -> Path:
