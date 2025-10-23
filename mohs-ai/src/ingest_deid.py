@@ -5,7 +5,16 @@ import argparse
 from pathlib import Path
 import csv
 
-from config import QCConfig
+try:
+    from config import QCConfig  # type: ignore
+except ImportError:
+    import sys
+    from pathlib import Path
+
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    if str(PROJECT_ROOT) not in sys.path:
+        sys.path.append(str(PROJECT_ROOT))
+    from src.config import QCConfig  # type: ignore
 
 
 def ingest_metadata(labels_csv: Path, deid_map_csv: Path, output_dir: Path) -> Path:

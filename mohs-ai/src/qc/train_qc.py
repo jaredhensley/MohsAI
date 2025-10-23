@@ -14,11 +14,22 @@ from torch import nn
 from torch.utils.data import DataLoader, Subset, random_split
 from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score
 
-from config import QCConfig
+try:  # allow running as package or as a standalone script
+    from config import QCConfig  # type: ignore
+    from utils_io import write_json  # type: ignore
+except ImportError:  # executed via `python -m src.qc.train_qc` or lacking cwd on sys.path
+    import sys
+    from pathlib import Path
+
+    PROJECT_ROOT = Path(__file__).resolve().parents[2]
+    if str(PROJECT_ROOT) not in sys.path:
+        sys.path.append(str(PROJECT_ROOT))
+    from src.config import QCConfig  # type: ignore
+    from src.utils_io import write_json  # type: ignore
+
 from .dataset_qc import build_datasets
 from .dummy_data import create_dummy_images
 from .model_qc import create_model, logits_to_prob
-from utils_io import write_json
 
 
 RANDOM_SEED = 1337

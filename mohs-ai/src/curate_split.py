@@ -6,7 +6,16 @@ import random
 from pathlib import Path
 from typing import Sequence
 
-from utils_io import list_images
+try:
+    from utils_io import list_images  # type: ignore
+except ImportError:
+    import sys
+    from pathlib import Path
+
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    if str(PROJECT_ROOT) not in sys.path:
+        sys.path.append(str(PROJECT_ROOT))
+    from src.utils_io import list_images  # type: ignore
 
 
 RANDOM_SEED = 2024

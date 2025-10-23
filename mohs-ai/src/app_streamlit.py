@@ -7,12 +7,21 @@ from pathlib import Path
 import streamlit as st
 from PIL import Image
 
-from config import QCConfig
+try:
+    from config import QCConfig  # type: ignore
+except ImportError:
+    import sys
+
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    if str(PROJECT_ROOT) not in sys.path:
+        sys.path.append(str(PROJECT_ROOT))
+    from src.config import QCConfig  # type: ignore
+
 from qc.infer_qc import QCOnnxInferencer
 from margin.infer_margin import infer_margin_stub
 
 
-st.set_page_config(title="Mohs Lab Assist", layout="wide")
+st.set_page_config(page_title="Mohs Lab Assist", layout="wide")
 
 cfg = QCConfig.from_env()
 model_path = cfg.model_path
@@ -30,7 +39,7 @@ def display_qc_tab() -> None:
     uploaded = st.file_uploader("Upload frozen section image", type=["jpg", "jpeg", "png"], key="qc-uploader")
     if uploaded:
         image = Image.open(BytesIO(uploaded.read())).convert("RGB")
-        st.image(image, caption="Preview", use_column_width=True)
+        st.image(image, caption="Preview", use_container_width=True)
         if st.button("Run QC"):
             inferencer = load_qc_model(model_path, cfg.image_size)
             if inferencer is None:
@@ -55,7 +64,7 @@ def display_margin_tab() -> None:
         image = Image.open(BytesIO(uploaded.read())).convert("RGB")
         col1, col2 = st.columns(2)
         with col1:
-            st.image(image, caption="Original", use_column_width=True)
+            st.image(image, caption="Original", use_container_width=True)
         if st.button("Run Margin Assist (stub)"):
             with st.spinner("Generating heuristic overlay..."):
                 result = infer_margin_stub(image)
@@ -64,7 +73,7 @@ def display_margin_tab() -> None:
             alpha = st.session_state.margin_alpha
             blended = Image.blend(image, overlay, alpha=alpha)
             with col2:
-                st.image(blended, caption="Overlay", use_column_width=True)
+                st.image(blended, caption="Overlay", use_container_width=True)
             st.metric("Probability margin involved", f"{prob * 100:.1f}%")
             st.caption(result["explanation"])
             st.caption("Prototype – not for clinical use.")

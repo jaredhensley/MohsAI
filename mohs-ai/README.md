@@ -35,9 +35,14 @@ mohs-ai/
    ```
    Adjust values as needed (e.g., dataset/model paths).
 
-2. **Install dependencies**
+2. **Install dependencies (creates local virtual environment)**
    ```bash
-   make install
+   make install PYTHON=python3.11
+   ```
+   ONNX Runtime only ships wheels up through Python 3.12 today, so use a Python 3.11 interpreter (override `PYTHON=...` if your default points elsewhere). This bootstraps a `.venv/` directory with `python3 -m venv` and installs requirements inside it.
+   To work interactively after installing, activate the virtual environment:
+   ```bash
+   source .venv/bin/activate
    ```
 
 3. **Train the QC model**

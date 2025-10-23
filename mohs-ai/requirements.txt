@@ -2,6 +2,7 @@ torch
 torchvision
 timm
 onnxruntime
+onnxscript
 opencv-python
 numpy
 Pillow
