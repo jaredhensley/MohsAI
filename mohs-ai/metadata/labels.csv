@@ -1,0 +1,3 @@
+case_id,image_id,label
+CASE001,IMG001,good
+CASE001,IMG002,poor
